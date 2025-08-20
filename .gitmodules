@@ -1,0 +1,6 @@
+[submodule "vbench"]
+	path = vbench
+	url = https://github.com/Vchitect/VBench.git
+[submodule "worldmem"]
+	path = worldmem
+	url = https://github.com/xizaoqu/WorldMem.git
