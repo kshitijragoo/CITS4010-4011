@@ -4,3 +4,6 @@
 [submodule "worldmem"]
 	path = worldmem
 	url = https://github.com/kshitijragoo/WorldMem.git
+[submodule "vggt"]
+	path = vggt
+	url = https://github.com/facebookresearch/vggt.git
