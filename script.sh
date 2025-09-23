@@ -42,7 +42,7 @@ if mamba env list | grep -q "worldmem"; then
     echo "✅ Environment 'worldmem' already exists, skipping creation."
 else
     mamba create -n worldmem python=3.10 -y
-fi
+fi 
 
 
 echo "📦  Installing WorldMem's Python packages from requirements.txt..."
@@ -57,7 +57,7 @@ echo "    -> Navigating to the VGGT directory..."
 cd ../vggt  # Go up one level from 'worldmem' and into 'vggt'
 
 echo "    -> Installing VGGT's specific requirements..."
-mamba run -n worldmem pip install -r requirements.txt
+# mamba run -n worldmem pip install -r requirements.txt
 
 echo "    -> Installing VGGT package in editable mode..."
 mamba run -n worldmem pip install -e .
