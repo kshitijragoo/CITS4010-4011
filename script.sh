@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script automates the setup for your CITS4010-4011 project,
-# which includes the WorldMem submodule.
+# which includes the WorldMem and VGGT submodules.
 # It will stop if any command fails.
 set -e
 
@@ -29,7 +29,7 @@ echo "🔄  Updating submodule URLs to also use the token..."
 # This command finds the submodule URLs and injects the token into them too
 sed -i "s|https://github.com/|https://oauth2:${GH_TOKEN}@github.com/|" .gitmodules
 
-echo "🔄  Initializing and updating submodules (this will pull in WorldMem)..."
+echo "🔄  Initializing and updating submodules (this will pull in WorldMem, VGGT, etc.)..."
 git submodule update --init --recursive
 
 # Navigate into the WorldMem directory to access its files
@@ -45,23 +45,38 @@ else
 fi
 
 
-echo "📦  Installing Python packages from requirements.txt..."
-# Use conda run to execute pip within the correct environment
+echo "📦  Installing WorldMem's Python packages from requirements.txt..."
+# Use mamba run to execute pip within the correct environment
 mamba run -n worldmem pip install -r requirements.txt
 
-# echo "🎬  Installing ffmpeg into the environment..."
-# conda install -n worldmem -c conda-forge ffmpeg=4.3.2 -y
+
+# --- [NEW SECTION] INSTALL VGGT IN EDITABLE MODE ---
+echo "⚙️  Setting up the VGGT submodule..."
+
+echo "    -> Navigating to the VGGT directory..."
+cd ../vggt  # Go up one level from 'worldmem' and into 'vggt'
+
+echo "    -> Installing VGGT's specific requirements..."
+mamba run -n worldmem pip install -r requirements.txt
+
+echo "    -> Installing VGGT package in editable mode..."
+mamba run -n worldmem pip install -e .
+
+echo "    -> Returning to the WorldMem directory..."
+cd ../worldmem # Go back to the 'worldmem' directory for the rest of the script
+# --- END OF NEW SECTION ---
+
+
+echo "🎬  Installing ffmpeg into the environment..."
 mamba install -n worldmem -c conda-forge ffmpeg=4.3.2 -y
 
 
-
-echo "🔄  Navigating into the worldmem directory..."
+echo "🔄  Ensuring we are in the worldmem directory..."
+# This cd is now less critical but kept for safety in case of manual script changes
 cd /workspace/CITS4010-4011/worldmem
 
 
 echo "🐍  Activating the 'worldmem' environment..."
-# conda init
-# conda activate worldmem
 eval "$(mamba shell hook --shell bash)"
 mamba activate worldmem
 
@@ -72,7 +87,7 @@ echo "Your project is in the 'CITS4010-4011' directory."
 echo ""
 echo "To run the application, first navigate to the correct folder and activate the environment:"
 echo "cd CITS4010-4011/worldmem"
-echo "conda activate worldmem"
+echo "mamba activate worldmem"
 echo ""
 echo "Then, you can run the application:"
 echo "python app.py"
