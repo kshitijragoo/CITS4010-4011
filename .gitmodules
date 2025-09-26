@@ -7,3 +7,6 @@
 [submodule "vggt"]
 	path = vggt
 	url = https://github.com/facebookresearch/vggt.git
+[submodule "vmem"]
+	path = vmem
+	url = https://github.com/kshitijragoo/vmem.git
