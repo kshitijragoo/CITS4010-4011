@@ -62,6 +62,13 @@ echo "    -> Installing VGGT's specific requirements..."
 echo "    -> Installing VGGT package in editable mode..."
 mamba run -n worldmem pip install -e .
 
+# echo "    -> Navigating to the VMEM directory..."
+# cd ../vmem  # Go up one level from 'worldmem' and into 'vmem'
+
+# echo "    -> Installing VMEM package in editable mode..."
+# mamba run -n worldmem pip install -e .
+
+
 echo "    -> Returning to the WorldMem directory..."
 cd ../worldmem # Go back to the 'worldmem' directory for the rest of the script
 # --- END OF NEW SECTION ---
