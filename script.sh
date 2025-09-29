@@ -78,6 +78,17 @@ echo "🎬  Installing ffmpeg into the environment..."
 mamba install -n worldmem -c conda-forge ffmpeg=4.3.2 -y
 
 
+# nagivate to vmem directory 
+echo "    -> Navigating to the VMEM directory..."
+cd ../vmem
+
+# install requirements
+mamba run -n worldmem pip install -r requirements.txt
+
+echo "    -> Returning to the WorldMem directory..."
+cd ../worldmem # Go back to the 'worldmem' directory for the rest of the script
+
+
 echo "🔄  Ensuring we are in the worldmem directory..."
 # This cd is now less critical but kept for safety in case of manual script changes
 cd /workspace/CITS4010-4011/worldmem
