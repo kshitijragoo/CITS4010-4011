@@ -32,6 +32,8 @@ sed -i "s|https://github.com/|https://oauth2:${GH_TOKEN}@github.com/|" .gitmodul
 echo "🔄  Initializing and updating submodules (this will pull in WorldMem, VGGT, etc.)..."
 git submodule update --init --recursive
 
+# Navigate into the WorldMem directory to access its files
+cd worldmem
 
 
 # --- Environment setup ---
@@ -54,11 +56,26 @@ echo "⚙️  Setting up the VGGT submodule..."
 echo "    -> Navigating to the VGGT directory..."
 cd ../vggt  # Go up one level from 'worldmem' and into 'vggt'
 
+echo "    -> Installing VGGT's specific requirements..."
+# mamba run -n worldmem pip install -r requirements.txt
+
 echo "    -> Installing VGGT package in editable mode..."
 mamba run -n worldmem pip install -e .
 
+# echo "    -> Navigating to the VMEM directory..."
+# cd ../vmem  # Go up one level from 'worldmem' and into 'vmem'
+
+# echo "    -> Installing VMEM package in editable mode..."
+# mamba run -n worldmem pip install -e .
+
+
 echo "    -> Returning to the WorldMem directory..."
 cd ../worldmem # Go back to the 'worldmem' directory for the rest of the script
+# --- END OF NEW SECTION ---
+
+
+echo "🎬  Installing ffmpeg into the environment..."
+mamba install -n worldmem -c conda-forge ffmpeg=4.3.2 -y
 
 
 echo "🔄  Ensuring we are in the worldmem directory..."
